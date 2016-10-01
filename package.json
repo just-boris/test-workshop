@@ -4,11 +4,13 @@
   "description": "ReactJS Powered Presentation Framework",
   "scripts": {
     "clean": "rimraf build",
+    "prebuild": "npm run clean",
     "build": "react-scripts build",
-    "deploy": "npm run clean & npm run build && surge -p ./build",
+    "deploy": "npm run build && gh-pages -d build",
     "start": "react-scripts start"
   },
   "author": "",
+  "homepage": "http://catatron.com/test-workshop/",
   "license": "MIT",
   "dependencies": {
     "react": "^15.3.2",
@@ -16,8 +18,8 @@
     "spectacle": "^1.2.3"
   },
   "devDependencies": {
+    "gh-pages": "^0.11.0",
     "react-scripts": "0.4.3",
-    "rimraf": "^2.5.4",
-    "surge": "^0.18.0"
+    "rimraf": "^2.5.4"
   }
 }
