@@ -1,0 +1,23 @@
+{
+  "name": "spectacle-boilerplate",
+  "version": "1.0.1",
+  "description": "ReactJS Powered Presentation Framework",
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "react-scripts build",
+    "deploy": "npm run clean & npm run build && surge -p ./build",
+    "start": "react-scripts start"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "spectacle": "^1.2.3"
+  },
+  "devDependencies": {
+    "react-scripts": "0.4.3",
+    "rimraf": "^2.5.4",
+    "surge": "^0.18.0"
+  }
+}
