@@ -3,9 +3,6 @@ import React from "react";
 
 // Import Spectacle Core tags
 import {
-  Appear,
-  BlockQuote,
-  Cite,
   CodePane,
   Deck,
   Fill,
@@ -15,8 +12,6 @@ import {
   Link,
   ListItem,
   List,
-  Markdown,
-  Quote,
   Slide,
   Spectacle,
   Text
@@ -25,25 +20,18 @@ import {
 // Import theme
 import createTheme from "spectacle/lib/themes/default";
 
-// Import custom component
-import Interactive from "./Interactive";
-
 // Require CSS
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
-const theme = createTheme({
-  primary: "#1b95ec"
-});
-
 export default class Presentation extends React.Component {
   render() {
     return (
-      <Spectacle theme={theme}>
+      <Spectacle theme={createTheme({ primary: "#1b95ec" })}>
         <Deck transition={["zoom", "slide"]} transitionDuration={500}>
           <Slide bgColor="primary">
             <Heading size={1} fit caps lineHeight={1} textColor="white">
-              Test front-end properly
+              My story of testing
             </Heading>
           </Slide>
           <Slide bgColor="white">
@@ -72,22 +60,53 @@ export default class Presentation extends React.Component {
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
-              Pick up your stack
+              Trap of easy tests
             </Heading>
-            <List textColor="primary">
-              <ListItem>Some test framework</ListItem>
-              <ListItem>Any assertion library</ListItem>
-              <ListItem><Link href="https://github.com/tmpvar/jsdom">JSDOM</Link> - browser-ish environment</ListItem>
-              <ListItem><Link href="https://github.com/airbnb/enzyme">Enzyme</Link> - render React Component into JSDOM</ListItem>
-            </List>
+            <CodePane>{`
+              src/
+              ├── actions.......(0%)
+              ├── components....(0%)
+              ├── middleware....(0%)
+              ├── reducers.....(10%)
+              ├── utils.......(100%)
+              test/
+              ├── reducers
+              │   └── applicants.spec.js
+              └── utils
+                  ├── collectionUtils.spec.js
+                  └── stringUtils.spec.js
+            `}</CodePane>
+          </Slide>
+          <Slide bgColor="white">
+            <Image src={require('../assets/react.svg')} height={300} />
+            <Heading size={2} textColor="primary">
+              Testing React components
+            </Heading>
+          </Slide>
+          <Slide bgColor="white">
+            <Heading size={2} textColor="primary">
+              Enzyme
+            </Heading>
+            <Text textColor="primary">react-addons-test-utils with better API</Text>
+            <CodePane lang="javascript">{`
+              import {shallow} from 'enzyme'
+
+              const component = shallow(<MySlides activeSlide={3} />)
+              component.find('.slide').eq(3).prop('active') // true
+            `}</CodePane>
+          </Slide>
+          <Slide bgColor="white">
+            <Heading size={2} textColor="primary">
+              JSDOM
+            </Heading>
+            <Heading size={4} textColor="primary">
+              Tiny browser-ish environment for&nbsp;Node
+            </Heading>
           </Slide>
           <Slide bgColor="primary">
             <Image src="https://facebook.github.io/jest/img/jest-outline.svg" height={200} />
             <Heading size={2} textColor="white">
               Jest
-            </Heading>
-            <Heading size={4} textColor="white">
-              Batteries included
             </Heading>
             <List textColor="white">
               <ListItem>JSDOM as environment</ListItem>
@@ -96,23 +115,17 @@ export default class Presentation extends React.Component {
               <ListItem>Interactive watch</ListItem>
             </List>
           </Slide>
-          <Slide bgColor="primary">
-            <Heading size={2} textColor="white">
+          <Slide bgColor="white">
+            <Heading size={2} textColor="primary">
               <code>npm test</code> and enjoy
             </Heading>
             <Image src={require('../assets/jest-passed.png')} />
           </Slide>
           <Slide bgColor="white">
-            <Heading size={4} textColor="primary">
-              Don't let your efforts go away,<br /> set up builds
-            </Heading>
-            <Image src={require('../assets/jenkins.png')} height={400} />
-          </Slide>
-          <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Tests are code
             </Heading>
-            <List textColor="primary">
+            <List>
               <ListItem>Care about test code quality as well as source code itself</ListItem>
               <ListItem>Give test a good name. (No "test 1"!)</ListItem>
               <ListItem>Write straightforward code, no if-s cycles</ListItem>
@@ -184,6 +197,32 @@ export default class Presentation extends React.Component {
               // test actual business value
               expect(collapsibleBlock.find('.content')).toExist();
             `}</CodePane>
+          </Slide>
+          <Slide bgColor="white">
+            <Heading size={1} textColor="primary">
+              Live coding
+            </Heading>
+          </Slide>
+          <Slide bgColor="white">
+            <Heading size={1} textColor="primary" margin={20}>
+              Thank you!
+            </Heading>
+            <Layout>
+              <Fill>
+                <Link textColor="secondary">
+                  @boriscoder
+                </Link>
+                <br/>
+                <Link size={4} textColor="secondary">
+                  github.com/just-boris
+                </Link>
+              </Fill>
+              <Fill>
+                <Link size={4} textColor="secondary">
+                  just-boris@hotmail.com
+                </Link>
+              </Fill>
+            </Layout>
           </Slide>
         </Deck>
       </Spectacle>
