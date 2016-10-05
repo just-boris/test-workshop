@@ -24,6 +24,11 @@ import createTheme from "spectacle/lib/themes/default";
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
+const codeStyle = {
+  fontSize: '28px',
+  background: 'transparent'
+};
+
 export default class Presentation extends React.Component {
   render() {
     return (
@@ -48,33 +53,31 @@ export default class Presentation extends React.Component {
             <Heading size={2} textColor="primary">
               First step
             </Heading>
-            <CodePane lang="javascript">{`
-              function add(a, b) {
-                return a + b;
-              }
-              it('adds a and b', function() {
-                cosnt sum = add(1, 2);
-                expect(sum).toBe(3);
-              });
+            <CodePane lang="javascript" style={codeStyle}>{`
+    function add(a, b) {
+      return a + b;
+    }
+    it('adds a and b', function() {
+      cosnt sum = add(1, 2);
+      expect(sum).toBe(3);
+    });
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Trap of easy tests
             </Heading>
-            <CodePane>{`
-              src/
-              ├── actions.......(0%)
-              ├── components....(0%)
-              ├── middleware....(0%)
-              ├── reducers.....(10%)
-              ├── utils.......(100%)
-              test/
-              ├── reducers
-              │   └── applicants.spec.js
-              └── utils
-                  ├── collectionUtils.spec.js
-                  └── stringUtils.spec.js
+            <CodePane style={codeStyle}>{`
+    src/
+    ├── components....(0%)
+    ├── reducers.....(10%)
+    ├── utils.......(100%)
+    test/
+    ├── reducers
+    │   └── applicants.spec.js
+    └── utils
+        ├── collectionUtils.spec.js
+        └── stringUtils.spec.js
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
@@ -88,11 +91,11 @@ export default class Presentation extends React.Component {
               Enzyme
             </Heading>
             <Text textColor="primary">react-addons-test-utils with better API</Text>
-            <CodePane lang="javascript">{`
-              import {shallow} from 'enzyme'
+            <CodePane lang="javascript" style={codeStyle}>{`
+import {shallow} from 'enzyme'
 
-              const component = shallow(<MySlides activeSlide={3} />)
-              component.find('.slide').eq(3).prop('active') // true
+const component = shallow(<MySlides activeSlide={3}/>)
+component.find('.slide').eq(3).prop('active') // true
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
@@ -128,7 +131,7 @@ export default class Presentation extends React.Component {
             <List>
               <ListItem>Care about test code quality as well as source code itself</ListItem>
               <ListItem>Give test a good name. (No "test 1"!)</ListItem>
-              <ListItem>Write straightforward code, no if-s cycles</ListItem>
+              <ListItem>Write straightforward code, no if-s and cycles</ListItem>
               <ListItem>Follow the pattern "setup-action-assertion"</ListItem>
             </List>
           </Slide>
@@ -136,66 +139,68 @@ export default class Presentation extends React.Component {
             <Heading size={2} textColor="primary">
               Write data-builders
             </Heading>
-            <CodePane lang="javascript">{`
-              function createTestUser(name, email, isActive = true) {
-                retrun {
-                  name, email,
-                  status: isActive ? 'ACTIVE' : 'DISABLED'
-                };
-              }
-
-              //then you can create test users easily
-              const user = createTestUser('Bob Jack', 'bob.jack@web.de')
+            <CodePane lang="javascript" style={codeStyle}>{`
+function createTestUser(name, email, isActive = true) {
+  retrun {
+    name, email,
+    status: isActive ? 'ACTIVE' : 'DISABLED'
+  };
+}
+//then you can create test users easily
+const user = createTestUser(
+  'Bob Jack',
+  'bob.jack@web.de'
+);
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Simplify and re-use assertions
             </Heading>
-            <CodePane lang="javascript">{`
-              //rather that doing this
-              expect(Array.isArray(items)).toBe(true)
-              expect(items.length).toBe(4)
+            <CodePane lang="javascript" style={codeStyle}>{`
+//rather that doing this
+expect(Array.isArray(items)).toBe(true)
+expect(items.length).toBe(4)
 
-              //you can create custom assertion
-              expect(items).toHaveLength(4)
+//you can create custom assertion
+expect(items).toHaveLength(4)
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Use Page Objects
             </Heading>
-            <CodePane lang="javascript">{`
-              //rather that doing this
-              expect(component.find('.unread-count').text()).toBe('12')
+            <CodePane lang="javascript" style={codeStyle}>{`
+//rather that doing this
+expect(component.find('.unread-count').text()).toBe('12')
 
-              //create a wrapper with simple getter
-              expect(page.unreadCount()).toHaveText('12')
+//create a wrapper with simple getter
+expect(page.unreadCount()).toHaveText('12')
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Page Objects: Implementation
             </Heading>
-            <CodePane lang="javascript">{`
-              function Page(component) {
-                this.unreadCount = () => component.find('.unread-count')
-              }
+            <CodePane lang="javascript" style={codeStyle}>{`
+function Page(component) {
+  this.unreadCount = () => component.find('.unread-count')
+}
 
-              const component = mount(<UserInfo user={user} />);
-              const page = new Page(component);
+const component = mount(<UserInfo user={user} />);
+const page = new Page(component);
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
             <Heading size={2} textColor="primary">
               Don't do dummy tests
             </Heading>
-            <CodePane lang="javascript">{`
-              // don't test obvious things
-              expect(collapsibleBlock.open).toBe(true);
+            <CodePane lang="javascript" style={codeStyle}>{`
+// don't test obvious things
+expect(collapsibleBlock.open).toBe(true);
 
-              // test actual business value
-              expect(collapsibleBlock.find('.content')).toExist();
+// test actual business value
+expect(collapsibleBlock.find('.content')).toExist();
             `}</CodePane>
           </Slide>
           <Slide bgColor="white">
@@ -210,7 +215,7 @@ export default class Presentation extends React.Component {
             <Layout>
               <Fill>
                 <Link textColor="secondary">
-                  @boriscoder
+                  Twitter: @boriscoder
                 </Link>
                 <br/>
                 <Link size={4} textColor="secondary">
